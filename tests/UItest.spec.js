@@ -1,35 +1,41 @@
-const {test, expect} = require('@playwright/test');
-const { LoginPage } = require('../pages/loginPage');
-const { SignUpPage } = require('../pages/SignUpPage');
+const { test, expect } = require("@playwright/test");
+const { LoginPage } = require("../pages/loginPage");
+const { SignUpPage } = require("../pages/SignUpPage");
 
-test('Successful Login', async ({page}) => {
-
-    const email = "yvidelosreyes@gmail.com";
-    const password = "tester001@11";
-
-    const login = new LoginPage(page);
-    await login.goToLoginPage();
-    await login.login(email, password)
-
-    console.log(await page.title())
-    await expect(page).toHaveTitle("PinasPeaks")
-    await expect(page.getByTestId('navbar-logo')).toBeVisible()
-    await expect(page.getByTestId('login-welcome-text')).toContainText("Welcome back");
- 
+test("Valid Login", async ({ page }) => {
+  const email = "cobritaddokei-5988@yopmail.com";
+  const password = "tester001@11";
+  const login = new LoginPage(page);
+  await login.goToLoginPage();
+  await login.login(email, password);
+  console.log(await page.title());
+  await expect(page).toHaveTitle("PinasPeaks");
+  await expect(page.getByTestId("navbar-logo")).toBeVisible();
+  await expect(page.getByTestId("login-welcome-text")).toContainText(
+    "Welcome back"
+  );
+});
+test("Invalid Username Login", async ({ page }) => {
+  const invalidEmail = "testyopmail.com";
+  const password = "tester001@11";
+  const login = new LoginPage(page);
+  await login.goToLoginPage();
+  await login.login(invalidEmail, password);
+  
+// Wait for browser’s native validation
+  const invalidEmailField = page.locator('input#email[required]:invalid');
+  await expect(invalidEmailField).toBeVisible();
 });
 
-
-test('Create an account', async ({page}) => { 
-
-    const randomEmail = `user_${Date.now()}@testmail.com`;
-    const password = "tester001@11";
-
-    const signUp = new SignUpPage(page)
-    await signUp.goToSignUpPage();
-    await signUp.signUp(randomEmail, password)
-
-    await expect(page.getByTestId('signup-welcome-text')).toContainText("Welcome");
-
+test("Create an account", async ({ page }) => {
+  const randomEmail = `user_${Date.now()}@testmail.com`;
+  const password = "tester001@11";
+  const signUp = new SignUpPage(page);
+  await signUp.goToSignUpPage();
+  await signUp.signUp(randomEmail, password);
+  await expect(page.getByTestId("signup-welcome-text")).toContainText(
+    "Welcome"
+  );
 });
 
 // test('Valid login, Search and View by mountain name', async ({page}) => {
@@ -147,7 +153,7 @@ test('Create an account', async ({page}) => {
 //        await page.locator(selector).check();
 //        await expect(page.locator(selector)).toBeChecked();
 //     }
-    
+
 //     await page.locator('#trail_climb_type').selectOption({label: "Minor"})
 //     await page.locator('#trail_level').selectOption({label: "Level 2"})
 //     await page.locator('#trail_type').selectOption({label: "Traverse"})
@@ -179,7 +185,7 @@ test('Create an account', async ({page}) => {
 //     await page.waitForURL('http://192.168.4.24:3000/mountains/new/success')
 //     expect(page.getByTestId('thankyou-text')).toContainText("Thank you for your contribution");
 //     expect(page.getByTestId('create-another-link')).toBeEnabled()
-    
+
 // });
 
 // test('Add a New Mountain, user is logged anonymously', async ({page}) => {
@@ -208,7 +214,7 @@ test('Create an account', async ({page}) => {
 //        await page.locator(selector).check();
 //        await expect(page.locator(selector)).toBeChecked();
 //     }
-    
+
 //     await page.locator('#trail_climb_type').selectOption({label: "Minor"})
 //     await page.locator('#trail_level').selectOption({label: "Level 2"})
 //     await page.locator('#trail_type').selectOption({label: "Traverse"})
@@ -240,12 +246,12 @@ test('Create an account', async ({page}) => {
 //     await page.waitForURL('http://192.168.4.24:3000/mountains/new/success')
 //     expect(page.getByTestId('thankyou-text')).toContainText("Thank you for your contribution");
 //     expect(page.getByTestId('create-another-link')).toBeEnabled()
-    
+
 // });
 
 // test('Create Another? link', async ({page}) => {
 //     await page.goto("http://192.168.4.24:3000/mountains/new/success")
-                     
+
 //     await page.getByTestId('create-another-link').click()
 //      //Add a New Mountain form
 //     await page.locator('#name').fill("Test Mountain One")
@@ -267,7 +273,7 @@ test('Create an account', async ({page}) => {
 //        await page.locator(selector).check();
 //        await expect(page.locator(selector)).toBeChecked();
 //     }
-    
+
 //     await page.locator('#trail_climb_type').selectOption({label: "Minor"})
 //     await page.locator('#trail_level').selectOption({label: "Level 2"})
 //     await page.locator('#trail_type').selectOption({label: "Traverse"})
@@ -301,11 +307,3 @@ test('Create an account', async ({page}) => {
 //     expect(page.getByTestId('create-another-link')).toBeEnabled()
 
 // });
-
-
-
-
-
-
-
-
