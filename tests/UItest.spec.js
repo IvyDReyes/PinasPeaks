@@ -1,6 +1,7 @@
 const { test, expect } = require("@playwright/test");
 const { LoginPage } = require("../pages/loginPage");
 const { SignUpPage } = require("../pages/SignUpPage");
+const { SearchAndView } = require("../pages/SearchAndView");
 
 test("Valid Login", async ({ page }) => {
   const email = "cobritaddokei-5988@yopmail.com";
@@ -38,21 +39,21 @@ test("Create an account", async ({ page }) => {
   );
 });
 
-// test('Valid login, Search and View by mountain name', async ({page}) => {
-//     //Navigate to URL
-//     await page.goto("http://192.168.4.24:3000")
-//     await page.getByTestId('navbar-login-button').click()
-//     //Go to Login page and login with valid credentials
-//     await page.getByTestId('email').fill("yvidelosreyes@gmail.com")
-//     await page.getByTestId('password').fill("tester001@11")
-//     await page.getByTestId('login-button').click()
-//     //Search mountain
-//     await expect(page.getByTestId('search-input').isEditable()).toBeTruthy() //search mountain should be editable
-//     await page.getByTestId('search-input').fill("lap")
-//     await page.waitForSelector('#search-results div')
-//     //View mountain
-//     await page.locator('#search-results div[role="link"]').nth(1).click();
-// });
+test('Valid login, Search and View by mountain name', async ({page}) => {
+  const email = "cobritaddokei-5988@yopmail.com";
+  const password = "tester001@11";
+  const login = new LoginPage(page);
+  await login.goToLoginPage();
+  await login.login(email, password);
+  const searchAndView = new SearchAndView(page);
+  await searchAndView.search()
+  await searchAndView.viewResult()
+  
+  await expect(page.getByTestId('search-input').isEditable()).toBeTruthy() //search mountain should be editable, should be true
+  //await page.locator('#search-results div[role="link"]').nth(1).click();
+   await expect(page.getByTestId('search-button').isEnabled()).toBeTruthy() //search button should be enabled, should be true
+
+});
 
 // test('Anonymous login, Search and View by mountain name', async ({page}) => {
 //     //Navigate to URL
