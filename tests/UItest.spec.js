@@ -45,13 +45,15 @@ test('Valid login, Search and View by mountain name', async ({page}) => {
   const login = new LoginPage(page);
   await login.goToLoginPage();
   await login.login(email, password);
+  
   const searchAndView = new SearchAndView(page);
+  await searchAndView.goToHomePage();
   await searchAndView.search()
   await searchAndView.viewResult()
   
-  await expect(page.getByTestId('search-input').isEditable()).toBeTruthy() //search mountain should be editable, should be true
-  //await page.locator('#search-results div[role="link"]').nth(1).click();
-   await expect(page.getByTestId('search-button').isEnabled()).toBeTruthy() //search button should be enabled, should be true
+await expect(page.getByTestId('search-input')).toBeEditable();
+await expect(page.getByTestId('search-button')).toBeEnabled();
+
 
 });
 
