@@ -4,8 +4,8 @@ exports.SearchAndView = class SearchAndView {
     this.homePageTitle = page.getByTestId("homepage-title-text")
     this.searchInputBox = page.getByTestId("search-input")
     this.searchButton = page.getByTestId("search-button")
-    //this.results = page.waitForSelector("#search-results div");
-    //page.locator('#search-results div[role="link"]').nth(0);
+    
+
     
   }
 

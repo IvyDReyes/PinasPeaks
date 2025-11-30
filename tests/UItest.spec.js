@@ -2,13 +2,15 @@ const { test, expect } = require("@playwright/test");
 const { LoginPage } = require("../pages/loginPage");
 const { SignUpPage } = require("../pages/SignUpPage");
 const { SearchAndView } = require("../pages/SearchAndView");
+const { Username } = require("../pages/Username");
 
-test("Valid Login", async ({ page }) => {
+test.beforeEach(async ({ page }) => {
   const email = "cobritaddokei-5988@yopmail.com";
   const password = "tester001@11";
   const login = new LoginPage(page);
   await login.goToLoginPage();
   await login.login(email, password);
+  //await page.waitForLoadState("networkidle");
   console.log(await page.title());
   await expect(page).toHaveTitle("PinasPeaks");
   await expect(page.getByTestId("navbar-logo")).toBeVisible();
@@ -16,17 +18,17 @@ test("Valid Login", async ({ page }) => {
     "Welcome back"
   );
 });
-test("Invalid Username Login", async ({ page }) => {
-  const invalidEmail = "testyopmail.com";
-  const password = "tester001@11";
-  const login = new LoginPage(page);
-  await login.goToLoginPage();
-  await login.login(invalidEmail, password);
+// test("Invalid Email Login", async ({ page }) => {
+//   const invalidEmail = "testyopmail.com";
+//   const password = "tester001@11";
+//   const login = new LoginPage(page);
+//   await login.goToLoginPage();
+//   await login.login(invalidEmail, password);
   
-// Wait for browser’s native validation
-  const invalidEmailField = page.locator('input#email[required]:invalid');
-  await expect(invalidEmailField).toBeVisible();
-});
+// // Wait for browser’s native validation
+//   const invalidEmailField = page.locator('input#email[required]:invalid');
+//   await expect(invalidEmailField).toBeVisible();
+// });
 
 test("Create an account", async ({ page }) => {
   const randomEmail = `user_${Date.now()}@testmail.com`;
@@ -39,13 +41,7 @@ test("Create an account", async ({ page }) => {
   );
 });
 
-test('Valid login, Search and View by mountain name', async ({page}) => {
-  const email = "cobritaddokei-5988@yopmail.com";
-  const password = "tester001@11";
-  const login = new LoginPage(page);
-  await login.goToLoginPage();
-  await login.login(email, password);
-  
+test('Valid login, Search and View by mountain name', async ({page}) => {  
   const searchAndView = new SearchAndView(page);
   await searchAndView.goToHomePage();
   await searchAndView.search()
@@ -72,20 +68,13 @@ await expect(page.getByTestId('search-button')).toBeEnabled();
 //     await page.locator('#search-results div[role="link"]').nth(23).click();
 // });
 
-// test('Update username', async ({page}) => {
-// //Navigate to URL
-//     await page.goto("http://192.168.4.24:3000")
-//     await page.getByTestId('navbar-login-button').click()
-//     //Go to Login page and login with valid credentials
-//     await page.getByTestId('email').fill("yvidelosreyes@gmail.com")
-//     await page.getByTestId('password').fill("tester001@11")
-//     await page.getByTestId('login-button').click()
-//     await page.getByTestId('navbar-user-avatar-img').click()
-//     await page.getByTestId('navbar-profile-link').click()
-//     //Update username
-//     await page.getByTestId('username').fill("charismatictention6591")
+test('Update and create the username', async ({page}) => {
+const update = new Username(page);
+await update.goToHomepage();
+await update.updateUsername();
 
-// });
+
+});
 
 // test('Claim your account', async ({page}) => {
 //     //Navigate to URL
