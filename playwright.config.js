@@ -13,7 +13,10 @@ const config = ({
     headless: false,
     screenshot:"on",
     video:"on",
-    trace:"on"
+    trace:"on",
+     storageState: "storageState.json",
+    baseURL: "http://localhost:3000"
+
   },
   reporter: 'html',
 

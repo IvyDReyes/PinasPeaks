@@ -9,9 +9,9 @@ exports.SearchAndView = class SearchAndView {
     
   }
 
-async goToHomePage() {
-    await this.page.goto("http://192.168.4.24:3000");
-  }
+// async goToHomePage() {
+//     await this.page.goto("http://192.168.4.24:3000");
+//   }
   
   async search() {
     await this.searchInputBox.fill("Pulag")
