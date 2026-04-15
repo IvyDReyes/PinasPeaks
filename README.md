@@ -140,7 +140,7 @@ Sample test target:
 ## 👩‍💻 Author
 
 **Ivy Delos Reyes**  
-Senior QA Engineer | Aspiring Automation Test Engineer  
+Senior QA Engineer
 
 ---
 
